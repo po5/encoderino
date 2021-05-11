@@ -1,0 +1,18 @@
+First episode of the live action Sukeban Deka TV series, with styled softsubs
+Had this lying around for a while, decided to work on it again
+I had reached out to SkewedS for the original softsubs but they lost them in a hard drive failure
+
+Trimmed black screen at beginning and end
+Audio losslessly cut with acsuite
+Translation is taroroot@D-Addicts's with SkewedS edits + some of my own minor edits
+Dialogue styling to match Skewed Studios
+Medium effort typesetting
+Redone timing
+
+This source has a slight green tint, I don't know how to deal with it so I left it
+Lazy edgefixing, it's not good-tier but still better than all encodes out there
+Deblock, deband, dehalo (still some halos left)
+
+Thanks to Jinsol for ripping from Amazon
+Thanks to mutsuto for the title typesetting
+Thanks to friend and Motxi for some sign translations

@@ -1,0 +1,13 @@
+A cool autism release for the opening to the famous Touhou anime series.
+
+Been working on this on and off for about 2 weeks, early release with some missing bits and pieces to capitalize on the memes.
+DataHoarder had independently been working on his own release, I had no idea and I doubt he did either https://nyaa.si/view/1276567
+
+Encoded from the official YouTube upload (higher quality master than niconico), downscaled to a more appropriate resolution, anti aliased to the best of my ability.
+Lossless audio cut & synced from the Lovelight album.
+Named chapters for each character's appearances.
+Fancy typesetting concept using vectors, see preview.
+Translation by a friend.
+Karaoke by FTV.
+
+Special thanks to thebombzen. Peace to XC boys.

@@ -1,0 +1,73 @@
+mpv is highly recommended for playing this release.
+It relies on possibly unintended behavior of external and internal subtitles with ordered chapters.
+VLC handles it the same way as mpv, but subtitles randomly flicker or entire lines disappear.
+Haven't tried MPC-HC.
+
+This release features YouTube community annotations, converted to ASS using my own renderer https://github.com/po5/assnotations
+Annotations should be on by default, assuming your player autoloads -and prefers- external subtitles.
+
+I've opted to not anti-alias any of the original drawings.
+Colors got fucked somewhere in the process, I chose to reproduce that mistake to match the popular video.
+
+Some frames in the initial line drawings were shifted 1px up, this error trickled down to the colored version where the mouth is shifted 1px up.
+These errors were fixed.
+
+This is 75 FPS not only for the memes but because Teto and Hattoushin don't have the same number of frames of animation, this is required for accurate timing.
+
+English, Japanese and Chinese danmaku comments for sm10780722 are included, converted to ASS with https://github.com/m13253/danmaku2ass
+
+Notes for mpv:
+--autoload-files=yes --sub-auto=fuzzy if annotations don't display.
+--sid=1 to disable annotations.
+--edition=1 for the regular version.
+--vf=format:colormatrix=bt.601 for original, unfucked colors.
+
+Quick timeline:
+2010/04/01 Original song & pv https://www.nicovideo.jp/watch/sm10244728
+2010/05/10 Instrumental + Hattoushin dance https://www.nicovideo.jp/watch/sm10673673
+2010/05/11 Line sketch https://www.nicovideo.jp/watch/sm10684314 (png download in his next video https://www.nicovideo.jp/watch/sm10693487)
+2010/05/15 Full version of line art https://www.nicovideo.jp/watch/sm10722683
+2010/05/12 Traced & colored version https://www.nicovideo.jp/watch/sm10691911
+2010/05/15 Colored version of the original line sketch, using the video above as color reference https://www.nicovideo.jp/watch/sm10722658 (with psd download)
+2010/05/15 Lipsynced version of the above and adding a bread background https://www.nicovideo.jp/watch/sm10722893 - he fucked colors along in the process
+2010/05/17 Version with blinking eyes https://www.nicovideo.jp/watch/sm10747504
+2010/05/20 Lon cover using video from sm10722893 https://www.nicovideo.jp/watch/sm10780722
+2010/06/18 tripflag karaoke and X9 version https://www.youtube.com/watch?v=29-q7YnyUmY
+2019/01/16 YouTube removes annotations
+2020/09/06 Initial work on the ASS annotation renderer
+2020/12/09 tripflag shares his original project files
+2020/12/?? sm10722658 is removed for unknown reasons
+
+Bread background:
+Extracted the best looking frames, masked out Teto & Hattoushin, aligned and averaged them together, then upscaled and further cleaned it up.
+Original files were never provided, so this is the best I could do.
+Positioning and movement matches the original video, background is shifted 0.285px horizontally and 0.185px vertically every frame for 1024x768 @ 30FPS, divided by 2.5 for 75FPS.
+
+Audio:
+Lon - Original audio from sm10780722
+UTAU - Lossless audio cut & synced from EXIT TUNES PRESENTS Vocaloanthems feat. Hatsune Miku album
+Instrumental - From sm10673673
+NES - ftm exported to WAV with FamiTracker, transcoded to Opus
+
+Lipsync recreation:
+Removed duplicate frames in the reference video and wrote a script to match mouth shapes.
+Each mouth movement was then manually checked and corrected where the script messed up.
+https://gist.github.com/po5/8c78bb1224179bbe2808ebecd4b7fab0
+
+Annotation renderer:
+Used annotationlib's algorithm for speech bubble arrows, it's different from the way YouTube does it and messed up some of the annotation art.
+Each speech bubble's arrows were manually adjusted to match original YouTube rendering.
+Text wrapping is mostly offloaded to libass through clever use of margins.
+The only text processing was to split words too long to fit on a line by themselves, and some trickery to preserve leading spaces.
+
+Subtitles:
+tripflag was kind enough to re-upload his original ASS subs, but they were made for VSFilter and looked all wonky with libass https://github.com/libass/libass/issues/465
+The original ass file (with minor edits to add explicit newlines) and the script used to make subs work in libass can be found on my Github https://gist.github.com/po5/b80f575b4620d4650c3fd9a596eb7ef2
+
+Thanks to
+niconico users: making this a thing
+tripflag: making and providing subs, original video
+afrmtbl, tech234a, Seirade, Cadence: helping me with annotation renderer specifics
+annotationlib https://github.com/afrmtbl/annotationlib
+
+DDL for all sources (original files, fixing errors is left as an exercise for the reader): https://mega.nz/folder/sbxiVbAA#7W9Dyj4mFm2vkaRuoP_F2g

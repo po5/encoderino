@@ -1,0 +1,25 @@
+This was only supposed to be a test to remove the awful static noise that's over the entire video, but the project kept growing.
+Here's the result of a little over a week's work. Most filtering work I've done so far, learned a lot.
+
+Comparison screenshots https://slow.pics/c/fog6Xgvv
+
+YouTube seems to be the only source, so it came with lots of artifacts.
+The YouTube video has English subtitles but they're actually empty, I used a translation by YouTube user wariwari. https://www.youtube.com/channel/UCS4K5SoMAN2W8KXlokyvWCA
+
+Audio is 24bit FLAC from OTOTOY, adjusted to the length of the video.
+
+Static grain was isolated and subtracted from the video.
+There is still some grain because some shots would look bad without, but it's much more bearable.
+The advantage of this over a regular denoiser is detail won't be destroyed, see comparisons.
+
+YouTube provides multiple video streams, each with their own problems. I mixed the best frames from the av1, vp9 and h264 streams.
+Recreated a panning shot that got badly compressed.
+Frames with ghosting or particularly bad compression were replaced by a clean frame where possible.
+Manual edits for frames that couldn't be easily filtered.
+Applied AA on scenes that needed it. Debanded where necessary. Fixed borders.
+
+Vapoursynth script provided as an mkv attachment.
+
+Thanks Dave and louis for help with the static grain removal.
+Thanks Dave for help with animating the stitched panning shot.
+Thanks friend for translating some signs.
