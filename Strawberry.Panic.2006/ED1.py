@@ -1,4 +1,4 @@
-from vapoursynth import core, RGBS
+from vapoursynth import core, RGBS, YUV444P8
 import vardefunc as vdf
 import awsmfunc as awf
 import havsfunc as haf
@@ -31,7 +31,6 @@ def creditedvfm(clip):
     nnedi = core.nnedi3cl.NNEDI3CL(clip, field=1)
 
     clip = awf.ReplaceFrames(vinv, nnedi, "230 266 668 901 949 953 954 957 961 962 1091 1151 1580 [1582 1588] [1590 1599] 1600 1605 1608 1611 1638 1826 1858 2006 2012 2015 2133 2341 2385 2447 2585 2608 2620 2626 2634 2646 2658 2664 2669 2671 [2673 2675]")
-
     return clip
 
 def creditlessvfm(clip):
@@ -41,6 +40,7 @@ def creditlessvfm(clip):
 
     clip = a+b+c
     vinv = clip.vinverse.Vinverse()
+
     clip = awf.ReplaceFrames(vinv, core.nnedi3cl.NNEDI3CL(clip, field=1), "230 266 668 949 953 957 961 962 1091 1151 1580 1611 1638 1826 1858 2006 2133 2341 2385 2447 2585 2608 2620 2626 2634 2646 2658 2664 2669 2671")
     return clip
 
@@ -133,6 +133,7 @@ yes = merged
 
 for i, ed in enumerate(worst_to_best):
     nnedi = core.nnedi3cl.NNEDI3CL(ed, field=1)
+
     ed = creditedvfm(ed)
 
     if i in [2, 5]:
@@ -153,12 +154,26 @@ for i, ed in enumerate(worst_to_best):
         ed = awf.ReplaceFrames(ed, nnedi, "2043 2047 2050")
 
     ed = ed.std.Crop(top=56, bottom=60)
+
     ededge = rekt.rekt_fast(yes, fun = lambda m: ed.std.Crop(left=4, right=4), left=4, right=4)
 
-    diff = vdf.mask.Difference().creditless(src_clip=ededge+ededge[0], credit_clip=ededge, nc_clip=nced, start_frame=0, thr=70, prefilter=True, expand=5)[:-1]
-    diff = diff.std.Deflate().std.Deflate().std.Deflate()
+    diff = vdf.mask.Difference().creditless(src_clip=ededge+ededge[0], credit_clip=ededge, nc_clip=nced, start_frame=0, thr=70, prefilter=True, expand=5)
+    diffedge = vdf.mask.Difference().creditless(src_clip=ededge+ededge[0], credit_clip=ededge, nc_clip=nced, start_frame=0, thr=20, prefilter=True, expand=5)
 
+    diff = core.std.StackVertical([diffedge.std.CropAbs(width=diffedge.width, height=4), diff.std.Crop(top=4, bottom=4), diffedge.std.CropAbs(width=diffedge.width, height=4, top=360)])[:-1]
+
+    diff = diff.std.Deflate().std.Deflate().std.Deflate()
     merged = core.std.MaskedMerge(ed, merged, diff)
     #damage = core.std.MaskedMerge(ed, damage, diff)
+
+merged = merged.std.Crop(left=2, right=2)
+merged = core.resize.Bicubic(merged, format=YUV444P8)
+merged = merged.std.Crop(left=1, right=1)
+merged = rekt.rektlvls(merged, rownum=[0], rowval=[10])
+merged = merged.fb.FillBorders(bottom=1, left=1, mode="fixborders")
+merged = awf.bbmod(merged, top=8, thresh=2, blur=4)
+merged = awf.bbmod(merged, left=6, right=6, thresh=2, blur=10)
+merged = awf.bbmod(merged, bottom=2, thresh=4, blur=4)
+merged = merged.std.AddBorders(top=56, bottom=60)
 
 set_output(ivtc(merged))
