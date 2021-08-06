@@ -6,7 +6,7 @@ import lvsfunc as lvf
 import G41Fun
 
 guilstein = core.d2v.Source("Guilstein/VTS_01_1.d2v")[:163645]
-guilstein = guilstein.decross.DeCross().dedot.Dedot().resize.Bicubic(format=YUV444P8, matrix_s="709")
+guilstein = guilstein.decross.DeCross().dedot.Dedot().resize.Bicubic(format=YUV444P8, matrix_s="170m")
 topline = guilstein.vinverse.Vinverse().std.Crop(top=63, bottom=70, left=6, right=6).std.CropAbs(top=1, width=guilstein.width-12, height=2)
 guilstein = core.std.MaskedMerge(guilstein.vinverse.Vinverse().std.Crop(top=66, left=6, right=6), guilstein.std.Crop(top=66, left=6, right=6).nnedi3.nnedi3(1), guilstein.std.Crop(top=66, left=6, right=6).comb.CombMask().morpho.Dilate())
 guilstein = guilstein.std.Crop(bottom=70)
@@ -22,7 +22,7 @@ guilstein = guilstein.f3kdb.Deband(range=30, grainy=2, grainc=2)
 guilstein = G41Fun.MaskedDHA(guilstein, rx=1.6, ry=1.6, darkstr=0.0, brightstr=0.6, lowsens=120, highsens=10)
 guilstein = haf.EdgeCleaner(guilstein, strength=10)
 
-guilstein = guilstein.resize.Bicubic(format=YUV420P8, matrix_s="709")
+guilstein = guilstein.resize.Bicubic(format=YUV420P8, matrix_s="170m")
 guilstein = guilstein.std.FreezeFrames(first=[110471], last=[110483], replacement=[110470])
 
 guilstein.set_output()
