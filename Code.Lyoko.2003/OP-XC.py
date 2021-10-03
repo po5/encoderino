@@ -22,7 +22,7 @@ deband = awf.ReplaceFrames(deband, lyoko.f3kdb.Deband(range=15, grainy=32, grain
 deband = awf.ReplaceFrames(deband, lyoko, "435")
 
 lyoko = awf.ReplaceFrames(deband, G41Fun.MaskedDHA(deband, rx=1.8, ry=1.8, darkstr=0.0, lowsens=70), "[384 420] [474 551] [606 673] [728 785]")
-lyoko = fvf.Depth(lyoko, 8)
+lyoko = fvf.Depth(lyoko, 10)
 
 lyoko = lyoko[5:]
 lyoko.set_output()
